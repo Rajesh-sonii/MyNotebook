@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import noteContext from "../context/notes/noteContext";
 
 const Login = () => {
-  const host = "http://localhost:5000";
+  const host = "https://mynotebook-im9n.onrender.com";
   let navigate = useNavigate();
   const context = useContext(noteContext);
   const { setAlert } = context;
