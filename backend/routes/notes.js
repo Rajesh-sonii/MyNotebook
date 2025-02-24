@@ -7,9 +7,7 @@ const { body, validationResult } = require('express-validator')
 
 //  Fetching all the notes a user has saved on the server / Authentication required
 router.get('/fetchallnotes', fetchuser, async (req, res) => {
-    // console.log(req.user.id)
     const notes = await Notes.find({ user: req.user.id })
-    // console.log(notes)
     return res.json(notes)
 })
 
@@ -37,7 +35,6 @@ router.post('/savenote', fetchuser, [
 
     } catch (error) {
         res.status(400).json({ error: "internal server error" })
-        // console.error(error.message)
         return;
     }
 });
@@ -72,15 +69,7 @@ router.put('/updatenote/:id', fetchuser, async (req, res) => {
 
 // Deleting the notes of the user / Authentication required
 router.delete('/deletenote/:id', fetchuser, async (req, res) => {
-
-    // const { title, description, tag } = req.body;
-    // let note = {}
-    // if (title) note.title = title;
-    // if (description) note.description = description;
-    // if (tag) note.tag = tag;
-
     try {
-
         // finding the note using it's id
         let user = await Notes.findById(req.params.id);
 
@@ -95,13 +84,10 @@ router.delete('/deletenote/:id', fetchuser, async (req, res) => {
         }
 
         user = await Notes.findByIdAndDelete(req.params.id)
-        // Actually updating the notes of the user after verifying their authenticity
-        // user = await Notes.findByIdAndUpdate(req.params.id, { $set: note }, { new: true })
-        // console.log("Note Deleted Successfully")
         return res.json({ user })
     
     } catch (error) {
-        // console.error(error.message)
+        console.error(error.message)
         return;
     }
 
